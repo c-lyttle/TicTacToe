@@ -22,13 +22,17 @@ public class game implements ActionListener {
 	private Boolean[] board = new Boolean[9];
 	
 	public static void main(String[] args) {
+		//Creates new game instance
 		new game();
 	}
 	
 	public game() {
 		frame = new JFrame();
 		panel = new JPanel();
+		panel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+		panel.setLayout(new GridLayout(3,3));
 		
+		//Create each button and add to panel
 		for (int i = 0; i < 9; i++) {
 			JButton curButton = new JButton();
 			curButton.putClientProperty("num", i);
@@ -36,14 +40,10 @@ public class game implements ActionListener {
 			curButton.setFont(new Font("Calibri", Font.PLAIN, 100));
 			curButton.setMargin(new Insets(45, 5, 5, 5));
 			buttonList.add(curButton);
+			panel.add(curButton);
 		}
 		
-		panel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-		panel.setLayout(new GridLayout(3,3));
-		for (JButton i : buttonList) {
-			panel.add(i);
-		}
-		
+		//Set up frame
 		frame.add(panel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("TicTacToe");
@@ -51,9 +51,12 @@ public class game implements ActionListener {
 		frame.setVisible(true);
 	}
 
+	//Called on button press
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		//Fetch button identifier
 		int i = ((Integer)((JButton)e.getSource()).getClientProperty("num"));
+		//If the square has already been played on, break
 		if (board[i]!=null){
 			return;
 		}
